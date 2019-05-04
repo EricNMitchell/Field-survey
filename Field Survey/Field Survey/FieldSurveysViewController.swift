@@ -48,7 +48,6 @@ class FieldSurveysViewController: UIViewController, UITableViewDelegate, UITable
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? FieldSurveyDetailViewController,
             let row = fieldSurveysTableView.indexPathForSelectedRow?.row {
-            
             destination.fieldSurvey = fieldSurveys[row]
         }
         

@@ -14,20 +14,20 @@ class FieldSurveyJSONParser {
     
     class func parse(_ data: Data) -> [FieldSurvey] {
         var fieldSurveys = [FieldSurvey]()
-        dateFormatter.dateFormat = "YYYY-MM-dd HH:mm"
+        dateFormatter.dateFormat = "YYYY-MM-DDTHH:MM:SSZ"
         
         if let json = try? JSONSerialization.jsonObject(with: data, options: []),
             let root = json as? [String: Any],
             let status = root["status"] as? String,
             status == "ok" {
             
-                if let surveys = root["observations"] as? [Any] {
-                    for survey in surveys {
-                        if let survey = survey as? [String: String] {
-                            if let classificationName = survey["classification"],
-                               let title = survey["title"],
-                               let description = survey["description"],
-                               let dateString = survey["date"],
+                if let observations = root["observations"] as? [Any] {
+                    for observation in observations {
+                        if let observation = observation as? [String: String] {
+                            if let classificationName = observation["classification"],
+                               let title = observation["title"],
+                               let description = observation["description"],
+                               let dateString = observation["date"],
                                let date = dateFormatter.date(from: dateString) {
                                 
                                 if let fieldSurvey = FieldSurvey(classificationName: classificationName, title: title, description: description, date: date) {
